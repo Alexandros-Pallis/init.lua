@@ -28,3 +28,13 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+-- Enable break indent
+vim.o.breakindent = true
+
+-- Decrease update time
+vim.o.updatetime = 250
+vim.o.timeoutlen = 300
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
