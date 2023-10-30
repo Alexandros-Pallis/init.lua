@@ -1,6 +1,7 @@
 require("apallis.set")
 require("apallis.remap")
 require("apallis.packer")
+require("apallis.globals")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})

@@ -64,4 +64,26 @@ require 'nvim-treesitter.configs'.setup {
             },
         },
     },
+    autotag = {
+        enable = true,
+    },
 }
+
+local parser_configs = require 'nvim-treesitter.parsers'.get_parser_configs()
+parser_configs.blade = {
+    install_info = {
+        url = "https://github.com/EmranMR/tree-sitter-blade",
+        files = { "src/parser.c" },
+        branch = "main",
+    },
+    filetype = "blade"
+}
+
+-- Set the *.blade.php file to be filetype of blade
+vim.api.nvim_create_augroup("BladeFiletypeRelated", {clear = true})
+
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+    pattern = { "*.blade.php" },
+    command = "set ft=blade",
+    group = "BladeFiletypeRelated"
+})

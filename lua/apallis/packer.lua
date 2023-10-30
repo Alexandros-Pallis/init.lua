@@ -13,12 +13,16 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
-    use 'folke/tokyonight.nvim'
-    use { "ellisonleao/gruvbox.nvim" }
-    use 'Shatur/neovim-ayu'
+    use({
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+    })
 
     use({
         "folke/trouble.nvim",
+        dependencies = { "nvim-web-devicons" },
         config = function()
             require("trouble").setup {
                 icons = false,
@@ -86,11 +90,77 @@ return require('packer').startup(function(use)
         "windwp/nvim-autopairs",
         config = function() require("nvim-autopairs").setup {} end
     }
-
     -- install without yarn or npm
     use({
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
+    -- Replace UI for messages etc
+    use({
+        "folke/noice.nvim",
+        requires = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    })
+
+    use(
+        {
+            "folke/todo-comments.nvim",
+            requires = { "nvim-lua/plenary.nvim" },
+            opts = {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        }
+    )
+
+    use {
+        'goolord/alpha-nvim',
+        requires = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require 'alpha'.setup(require 'alpha.themes.startify'.config)
+        end
+    }
+
+    use { "lewis6991/gitsigns.nvim" }
+    use {
+        "nvim-lualine/lualine.nvim",
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
+    use {
+        "SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
+    }
+
+    use({ "folke/neodev.nvim", opts = {} })
+
+    use({ "RRethy/vim-illuminate" })
+
+    use "lukas-reineke/indent-blankline.nvim"
+
+    -- close html tags
+    use({ "windwp/nvim-ts-autotag" })
+
+    use({ "mattn/emmet-vim" })
+
+    use({ "AndrewRadev/splitjoin.vim" })
+
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        }
+    }
 end)
